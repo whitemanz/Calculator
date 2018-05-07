@@ -1,0 +1,99 @@
+body {
+    background: $bg; // подключаю фон
+}
+#jsCalc {
+    width: $width;
+    background: $default-bg;
+    color: $defult-color;
+    padding-bottom: $margin;
+    font-family: $font-family;
+
+    > * {
+        box-sizing: border-box;
+    }
+
+    // Controlls
+    .controls {
+        display: flex;
+
+
+        .control {
+            background: $btn-bg;
+            width: (($width - $margin * 2 - $btn-margin * 6) / 4 );
+            text-align: center;
+            padding: ($margin / 4);
+            cursor: default;
+            transition: background .2s;
+
+            &_hide {
+                margin-left: auto;
+                margin-right: ($btn-margin * 2);
+
+                &:hover {
+                    background: $btn-bg-hover;
+                }
+            }
+
+            &_close:hover {
+                background: $accent-hover;
+            }
+        }
+    }
+
+
+    // Screen
+    #screen {
+        margin: $margin;
+        padding: ($margin / 2) $margin;
+        background: $btn-bg;
+        text-align: right;
+        font-size: 3em;
+        line-height: 1;
+    }
+
+    // Buttons
+    .btns {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 2.5em;
+        text-align: center;
+        margin: 0 ($margin - $btn-margin);
+
+        .btn,
+        .act,
+        .divider {
+            flex-grow: 1;
+            flex-basis: 23%;
+            margin: $btn-margin;
+            cursor: default;
+            transition: background .2s;
+        }
+
+        .btn {
+            background: $btn-bg;
+
+            &:hover {
+                background: $btn-bg-hover;
+            }
+        }
+
+        .act {
+            background: $act-bg;
+
+            &:hover {
+                background: $act-bg-hover;
+            }
+        }
+        
+        .reset {
+
+            &:hover {
+                background: $accent-hover;
+            }
+        }
+
+        .divider {
+            margin-right: 49%;
+        }
+    }
+}

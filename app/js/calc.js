@@ -113,6 +113,7 @@ minus_fraction(a,b){ // * Метод вычитания дробных чисе�
          }
 // Основные методы вычисления арифметических операций - END
 } // end Class Calc
+/*
 let calc = new Calc(); // new Object calc by Class: Calc
 
 // операции с целыми числами
@@ -159,3 +160,38 @@ calc.plus(123456789.9).plus(0.987654321).values; // 123456800
 calc.del(2.0002).del(3.003).del(4.01).del(5.1).values; // 1005013.1
 
 calc.zero().values; // 0
+*/
+var btn = document.getElementsByClassName('btn'),
+    act = document.getElementsByClassName('act'),
+    screen = document.getElementById('screen'),
+    reset = document.getElementById('reset');
+  console.log( screen.innerText );
+  //console.log( btn ); // 11 кол-во элементов в массиве (0-9 + .)
+  
+curent = '';
+  for (var i = 0; i < btn.length; i++) {
+    //console.log( btn[i].innerText ); // выводим текстовое содержимое элементов с классом .btn
+
+    btn[i].onclick = function() { // вешаем обработчик на каждый элемент с классом .btn
+        //производим какие-то действия
+       console.log(this.innerText);
+        if(screen.innerText.length < 8) {
+            curent += this.innerText;
+            screen.innerText = curent;
+            console.log(screen.innerText);
+        }
+      }
+  }
+  for (var i = 0; i < act.length; i++) {
+   // console.log( act[i].innerText ); // выводим текстовое содержимое элементов с классом .act
+
+    act[i].onclick = function() { // вешаем обработчик на каждый элемент с классом .act
+        //производим какие-то действия
+        console.log(this.innerText);
+    }
+  }
+  reset.onclick = function() { // обнуление экрана
+    curent = '';
+    screen.innerText = '0';
+    console.log(screen.innerText);
+  }

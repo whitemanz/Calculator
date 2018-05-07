@@ -1,0 +1,92 @@
+body {
+  background: gray;
+}
+
+#jsCalc {
+  width: 250px;
+  background: #000;
+  color: #fff;
+  padding-bottom: 10px;
+  font-family: sans-serif;
+}
+
+#jsCalc > * {
+  box-sizing: border-box;
+}
+
+#jsCalc .controls {
+  display: flex;
+}
+
+#jsCalc .controls .control {
+  background: rgba(255, 255, 255, 0.2);
+  width: 54.5px;
+  text-align: center;
+  padding: 2.5px;
+  cursor: default;
+  transition: background .2s;
+}
+
+#jsCalc .controls .control_hide {
+  margin-left: auto;
+  margin-right: 4px;
+}
+
+#jsCalc .controls .control_hide:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+#jsCalc .controls .control_close:hover {
+  background: rgba(255, 0, 0, 0.75);
+}
+
+#jsCalc #screen {
+  margin: 10px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.2);
+  text-align: right;
+  font-size: 3em;
+  line-height: 1;
+}
+
+#jsCalc .btns {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 2.5em;
+  text-align: center;
+  margin: 0 8px;
+}
+
+#jsCalc .btns .btn,
+#jsCalc .btns .act,
+#jsCalc .btns .divider {
+  flex-grow: 1;
+  flex-basis: 23%;
+  margin: 2px;
+  cursor: default;
+  transition: background .2s;
+}
+
+#jsCalc .btns .btn {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#jsCalc .btns .btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+#jsCalc .btns .act {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#jsCalc .btns .act:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#jsCalc .btns .reset:hover {
+  background: rgba(255, 0, 0, 0.75);
+}
+
+#jsCalc .btns .divider {
+  margin-right: 49%;
+}
