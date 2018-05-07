@@ -161,20 +161,26 @@ calc.del(2.0002).del(3.003).del(4.01).del(5.1).values; // 1005013.1
 
 calc.zero().values; // 0
 */
-var btn = document.getElementsByClassName('btn'),
-    act = document.getElementsByClassName('act'),
-    screen = document.getElementById('screen'),
-    reset = document.getElementById('reset');
+var btn = document.getElementsByClassName('btn'), // кнопки значений
+    act = document.getElementsByClassName('act'), // кнопка операции (+ - * / =)
+    screen = document.getElementById('screen'), // Экран калькулятора
+    reset = document.getElementById('reset'), // кнопка обнеления (С)
+    curent = '', // текущее значение экрана
+    value = []; // мазив чисел с экрана
   console.log( screen.innerText );
   //console.log( btn ); // 11 кол-во элементов в массиве (0-9 + .)
-  
-curent = '';
   for (var i = 0; i < btn.length; i++) {
     //console.log( btn[i].innerText ); // выводим текстовое содержимое элементов с классом .btn
 
     btn[i].onclick = function() { // вешаем обработчик на каждый элемент с классом .btn
         //производим какие-то действия
        console.log(this.innerText);
+if( (this.innerText == '.') && ( screen.innerText == '0') ) { // проверка на 0 + (.)
+          curent = 0; // текущее значение экрана
+       }
+if( (this.innerText == '.') && ( screen.innerText == '0.') ) { // проверка на 0 + (.)
+          curent = 0; // текущее значение экрана
+       }
         if(screen.innerText.length < 8) {
             curent += this.innerText;
             screen.innerText = curent;
@@ -186,12 +192,27 @@ curent = '';
    // console.log( act[i].innerText ); // выводим текстовое содержимое элементов с классом .act
 
     act[i].onclick = function() { // вешаем обработчик на каждый элемент с классом .act
-        //производим какие-то действия
-        console.log(this.innerText);
+      console.log(this.innerText);
+
+        value.push(screen.innerText);
+        console.log(value);
+        zero_screen();
     }
   }
   reset.onclick = function() { // обнуление экрана
-    curent = '';
-    screen.innerText = '0';
-    console.log(screen.innerText);
+    zero_screen();
   }
+  function zero_screen(){ // функция обнуления
+   curent = '';
+    screen.innerText = '0';
+     console.log(screen.innerText); 
+  }
+  
+  function dot(str){ // определение вхождений символа (.) в строке
+  var pos = -1, col=0;
+  while ((pos = str.indexOf('.', pos + 1)) != -1) {
+   ++col;    
+    alert( pos, col );
+  }
+ return col;
+}
