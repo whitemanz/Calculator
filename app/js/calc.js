@@ -113,9 +113,9 @@ minus_fraction(a,b){ // * Метод вычитания дробных чисе�
          }
 // Основные методы вычисления арифметических операций - END
 } // end Class Calc
-/*
-let calc = new Calc(); // new Object calc by Class: Calc
 
+let calc = new Calc(); // new Object calc by Class: Calc
+/*
 // операции с целыми числами
 calc.plus('10a').plus(17).plus(3).plus('1a').values; // 20
 
@@ -166,46 +166,96 @@ var btn = document.getElementsByClassName('btn'), // кнопки значени
     screen = document.getElementById('screen'), // Экран калькулятора
     reset = document.getElementById('reset'), // кнопка обнеления (С)
     curent = '', // текущее значение экрана
-    value = []; // мазив чисел с экрана
-  console.log( screen.innerText );
-  //console.log( btn ); // 11 кол-во элементов в массиве (0-9 + .)
+    value = [], // массив чисел с экрана
+    operations = [], // массив значений операций над числами
+    result = []; // рузультат пошаговых операций
+
+  // Блок обработчика числовых значений калькулятора ( кнопки: 1,2,3,4,5,6,7,8,9,0,С,.) - START
   for (var i = 0; i < btn.length; i++) {
     //console.log( btn[i].innerText ); // выводим текстовое содержимое элементов с классом .btn
 
     btn[i].onclick = function() { // вешаем обработчик на каждый элемент с классом .btn
-        //производим какие-то действия
-       console.log(this.innerText);
+// проверка на 0 и точку
 if( (this.innerText == '.') && ( screen.innerText == '0') ) { // проверка на 0 + (.)
           curent = 0; // текущее значение экрана
        }
-if( (this.innerText == '.') && ( screen.innerText == '0.') ) { // проверка на 0 + (.)
-          curent = 0; // текущее значение экрана
-       }
-        if(screen.innerText.length < 8) {
-            curent += this.innerText;
-            screen.innerText = curent;
-            console.log(screen.innerText);
-        }
-      }
-  }
+// проверка на вторую точку
+if( (this.innerText == '.') && ( dot(screen.innerText) >= 1) ) { // проверка на 2-е вхождение (.)
+        if(screen.innerText.length < 8) {            
+            screen.innerText = curent; // запись в экран текущего значения без последнего символа
+        }  
+       } else {
+                  if(screen.innerText.length < 8) {
+                    curent += this.innerText; // текущее значение с последний символом
+                    screen.innerText = curent; // запись в экран текущего значения + последннее число
+                    //console.log(screen.innerText);
+                 }
+              }
+      } // btn.onclick
+  }  // Блок обработчика числовых значений калькулятора ( кнопки: 1,2,3,4,5,6,7,8,9,0,С,.) - END
+
+  // Блок обработчик актов (операций над числами: / * - + =) - START
   for (var i = 0; i < act.length; i++) {
-   // console.log( act[i].innerText ); // выводим текстовое содержимое элементов с классом .act
-
     act[i].onclick = function() { // вешаем обработчик на каждый элемент с классом .act
-      console.log(this.innerText);
+      value.push(screen.innerText);
+      operations.push(this.innerText);
 
-        value.push(screen.innerText);
         console.log(value);
-        zero_screen();
+        console.log(operations);
+        //console.log(operations[operations.length -1]);
+
+switch ( operations[operations.length -1] ) {
+  case '+':
+  screen.innerText +='+';
+    result.push( calc.plus(value[value.length - 1]).values );    
+    break;
+  case '−':
+    result.push( calc.minus(value[value.length - 1]).values );
+    break;
+  case '÷':
+    result.push( calc.del(value[value.length - 1]).values );
+    break;
+  case '×':
+    result.push( calc.multi(value[value.length - 1]).values );
+    break;
+  case '=':
+  console.log(value,'',result);
+
+              // ********************
+                  switch ( operations[operations.length -2] ) {
+                case '+':                  
+                  result.push( calc.plus(value[value.length - 1]).values );                  
+                  break;
+                case '−':
+                  result.push( calc.minus(value[value.length - 1]).values );
+                  break;
+                case '÷':
+                  result.push( calc.del(value[value.length - 1]).values );
+                  break;
+                case '×':
+                  result.push( calc.multi(value[value.length - 1]).values );
+                  break;
+                }
+              // ********************
+              console.log('Итого: ', result[result.length-1]);
+    break;
+  default:
+    console.log( 'Я таких значений не знаю', operations[operations.length - 1] );
+}
+console.log(result);
+       zero_screen();
     }
   }
-  reset.onclick = function() { // обнуление экрана
-    zero_screen();
+  // Блок обработчик актов (операций над числами: / * - + =) - END
+
+  reset.onclick = function() { // обработчик на кнопку (С) обнуление экрана
+    zero_screen(); // вызов функции обнуления экрана
+    calc.zero();
   }
+
   function zero_screen(){ // функция обнуления
    curent = '';
     screen.innerText = '0';
-     console.log(screen.innerText); 
   }
   
   function dot(str){ // определение вхождений символа (.) в строке
