@@ -197,6 +197,7 @@ if( (this.innerText == '.') && ( dot(screen.innerText) >= 1) ) { // провер
   // Блок обработчик актов (операций над числами: / * - + =) - START
   for (var i = 0; i < act.length; i++) {
     act[i].onclick = function() { // вешаем обработчик на каждый элемент с классом .act
+
       value.push(screen.innerText);
       operations.push(this.innerText);
 
@@ -210,7 +211,10 @@ switch ( operations[operations.length -1] ) {
     result.push( calc.plus(value[value.length - 1]).values );    
     break;
   case '−':
+    console.log(calc.default);
+    if(value.length == 1) { calc.default = screen.innerText * 2}; // инициализация Calc.default
     result.push( calc.minus(value[value.length - 1]).values );
+    console.log(calc.default);
     break;
   case '÷':
     result.push( calc.del(value[value.length - 1]).values );
@@ -219,7 +223,7 @@ switch ( operations[operations.length -1] ) {
     result.push( calc.multi(value[value.length - 1]).values );
     break;
   case '=':
-  console.log(value,'',result);
+  console.log(calc.default, value,'',result);
 
               // ********************
                   switch ( operations[operations.length -2] ) {
@@ -251,6 +255,9 @@ console.log(result);
   reset.onclick = function() { // обработчик на кнопку (С) обнуление экрана
     zero_screen(); // вызов функции обнуления экрана
     calc.zero();
+    result = [];
+    value = [];
+    operations = [];
   }
 
   function zero_screen(){ // функция обнуления
